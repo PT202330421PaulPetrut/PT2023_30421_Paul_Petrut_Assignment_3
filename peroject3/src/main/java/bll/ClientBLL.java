@@ -33,6 +33,5 @@ public class ClientBLL {
         }
         return st;
     }
-
 }
 

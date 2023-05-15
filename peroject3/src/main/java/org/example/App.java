@@ -1,6 +1,7 @@
 package org.example;
 
 import bll.ClientBLL;
+import bll.ProductBLL;
 import database.DataAccess;
 import model.Client;
 
@@ -14,6 +15,7 @@ public class App
     public static void main( String[] args )
     {
         System.out.println( "Hello World!" );
+        ProductBLL productBLL = new ProductBLL();
 
 
     }
