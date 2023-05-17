@@ -11,7 +11,7 @@ public class ClientDAO extends AbstractDAO<Client>{
     }
 
     @Override
-    public Client insert(Client client) {
+    public boolean insert(Client client) {
         return super.insert(client);
     }
 
@@ -24,4 +24,12 @@ public class ClientDAO extends AbstractDAO<Client>{
     public Client update(Client client) {
         return super.update(client);
     }
+
+    @Override
+    public String createInsertQuery() {
+        return "INSERT INTO Client (name, email) VALUES (?, ?)";
+    }
+
+
+
 }

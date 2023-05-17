@@ -6,21 +6,22 @@ import javax.swing.table.DefaultTableModel;
 import java.sql.*;
 
 
+
 public class DataAccess {
     static Connection conn;
     static ResultSet resultSet;
     static Statement statement;
     public DataAccess(){
-        connect();
     }
-
     public boolean connect() {
         try {
             // Step 1: Load the JDBC driver
             Class.forName("com.mysql.cj.jdbc.Driver");
-            // Step 2: Establish a connection
-            String url = "jdbc:mysql://aws.connect.psdb.cloud/proiectpt?sslMode=VERIFY_IDENTITY&useSSL=false";
-            conn = DriverManager.getConnection(url, "dz02h8gj2rwrr5hjw1xq", "pscale_pw_qXt8GLS5u7q3Tv7M14dhbFc5sKQnvPDMZihZbjNdkYm");
+            conn = DriverManager.getConnection(
+                    "jdbc:mysql://aws.connect.psdb.cloud/proiectpt?sslMode=VERIFY_IDENTITY",
+                    "efd511otgvxp65omenxa",
+                    "pscale_pw_4po37VwB5AdRwisvCRSJnBgadO0cUGpFVGUaKixYVXu");
+
             return true;
         } catch (SQLException e) {
             System.out.println("ERROR: SQLException connection: " + e.getMessage());
@@ -107,6 +108,7 @@ public class DataAccess {
         }
     }
     public Connection getConnection() {
+        connect();
         return conn;
     }
 }

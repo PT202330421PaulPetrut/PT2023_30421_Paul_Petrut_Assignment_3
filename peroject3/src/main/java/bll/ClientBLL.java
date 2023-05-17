@@ -22,7 +22,6 @@ public class ClientBLL {
     public ClientBLL() {
         validators = new ArrayList<Validator<Client>>();
         validators.add(new EmailValidator());
-
         clientDAO = new ClientDAO();
     }
 
@@ -33,5 +32,16 @@ public class ClientBLL {
         }
         return st;
     }
+
+    public boolean insert(Client client){
+        boolean client1=clientDAO.insert(client);
+        if(!client1){
+            throw new NoSuchElementException("The client=" + client + " was not added in db");
+        }
+
+
+        return true;
+    }
+
 }
 

@@ -14,9 +14,8 @@ public class ProductDAO extends AbstractDAO<Product>{
     public Product findById(int id) {
         return super.findById(id);
     }
-
     @Override
-    public Product insert(Product product) {
+    public boolean insert(Product product) {
         return super.insert(product);
     }
 
@@ -25,4 +24,8 @@ public class ProductDAO extends AbstractDAO<Product>{
         return super.update(product);
     }
 
+    @Override
+    public String createInsertQuery() {
+        return "INSERT INTO Product (`name`, `price`, `quantity`) VALUES (?, ?, ?);";
+    }
 }
