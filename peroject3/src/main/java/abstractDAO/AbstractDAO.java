@@ -53,7 +53,7 @@ public class AbstractDAO<T> {
                 " WHERE " + field + " =?";
     }
 
-    public List<T> findAll() {
+    public ArrayList<T> findAll() {
         // TODO:
 
 
@@ -86,9 +86,9 @@ public class AbstractDAO<T> {
     }
     /**
      * create an object of the type of the calling class and return it
-     * @param resultSet result from a database SQL statement
+     * @param resultSet result from a database SQL statement with the same format as the caller class
      *
-     * @return a list with
+     * @return a list with the made objects
      */
     private List<T> createObjects(ResultSet resultSet) {
         List<T> list = new ArrayList<T>();
@@ -126,20 +126,67 @@ public class AbstractDAO<T> {
     public boolean insert(T t) {
         // Check if t is null
         if (t == null) {
-            System.out.print("T is null");
+            System.out.print("T is null for insert, AbstractDAO");
             return false;
         }
+        String query = createInsertQuery();
+        return  executeUp(query,t);
+
+    }
+
+    // Abstract methods to be implemented by subclasses
+    protected String createInsertQuery() {
+        return null;
+    }
+    protected String createDeleteQuery() {
+        return "DELETE FROM "+ type.getSimpleName() +" WHERE id=?";
+    }
+    public String createUpdateQuery(){
+        return null;
+    }
+
+    /**
+     * take your class an do an update in the db
+     * @param t the class that we update
+     * @return true if no errors false if there are errors while trying to write in db
+     */
+    public boolean update(T t) {
+        // TODO: FA-L PE ASTA ODATA nu-i facut (18 may 2023)
+        // you need to know the id, update the everything for that id with the new info
+        // Check if t is null
+        if (t == null) {
+            System.out.print("T is null for update,AbstractDAO");
+            return false;
+        }
+        String query = createUpdateQuery();
+        return executeUp(query,t);
+    }
+
+    /**
+     * It's a method that is used to run executeUpdate() in a ok-ish safe-ish manner
+     * @param query it's a string with the SQL query
+     * @param t give the object to get the right type of the Fields
+     * @return true if there was no problem when running, false otherwise
+     */
+    public boolean executeUp(String query,T t){
         DataAccess dataAccess= new DataAccess();
         Connection connection = dataAccess.getConnection();
         PreparedStatement statement = null;
         ResultSet resultSet = null;
-        String query = createInsertQuery();
         try {
             statement = connection.prepareStatement(query);
-            Field[] fields = type.getDeclaredFields();
-            for (int i = 1; i < fields.length; i++) {
-                fields[i].setAccessible(true);
-                statement.setObject(i, fields[i].get(t));
+            if(t!=null){
+                Field[] fields = type.getDeclaredFields();
+                if(query.contains("DELETE")){
+                      fields[0].setAccessible(true);
+                      statement.setObject(1, fields[0].get(t));
+                }
+                else {
+                    for (int i = 1; i < fields.length; i++) {
+                        fields[i].setAccessible(true);
+                        statement.setObject(i, fields[i].get(t));
+                    }
+                }
             }
             // Execute the query and return the result
             statement.executeUpdate();
@@ -154,13 +201,14 @@ public class AbstractDAO<T> {
         return false;
     }
 
-    // Abstract methods to be implemented by subclasses
-    protected String createInsertQuery() {
-        return null;
+    public boolean delete(T t){
+        if (t == null) {
+            System.out.print("T is null for delete,AbstractDAO");
+            return false;
+        }
+        String query = createDeleteQuery();
+        return executeUp(query,t);
     }
 
-    public T update(T t) {
-        // TODO:
-        return t;
-    }
+
 }

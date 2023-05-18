@@ -2,14 +2,13 @@ package abstractDAO;
 
 import model.Product;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class ProductDAO extends AbstractDAO<Product>{
     @Override
-    public List<Product> findAll() {
+    public ArrayList<Product> findAll() {
         return super.findAll();
     }
-
     @Override
     public Product findById(int id) {
         return super.findById(id);
@@ -18,14 +17,17 @@ public class ProductDAO extends AbstractDAO<Product>{
     public boolean insert(Product product) {
         return super.insert(product);
     }
-
     @Override
-    public Product update(Product product) {
+    public boolean update(Product product) {
         return super.update(product);
     }
-
+    @Override
+    public String createUpdateQuery(){
+        return "UPDATE Product SET name = ?, price= ?, quantity = ? WHERE id = ?";
+    }
     @Override
     public String createInsertQuery() {
         return "INSERT INTO Product (`name`, `price`, `quantity`) VALUES (?, ?, ?);";
     }
+
 }

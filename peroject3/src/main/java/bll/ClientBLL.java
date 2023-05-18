@@ -17,7 +17,7 @@ import java.util.NoSuchElementException;
 public class ClientBLL {
 
     private List<Validator<Client>> validators;
-    private ClientDAO clientDAO;
+    private final ClientDAO clientDAO;
 
     public ClientBLL() {
         validators = new ArrayList<Validator<Client>>();
@@ -28,7 +28,7 @@ public class ClientBLL {
     public Client findClientById(int id) {
         Client st = clientDAO.findById(id);
         if (st == null) {
-            throw new NoSuchElementException("The client with id =" + id + " was not found!");
+            System.out.println("The client with id =" + id + " was not found!");
         }
         return st;
     }
@@ -36,11 +36,31 @@ public class ClientBLL {
     public boolean insert(Client client){
         boolean client1=clientDAO.insert(client);
         if(!client1){
-            throw new NoSuchElementException("The client=" + client + " was not added in db");
+            System.out.println("The client=" + client + " was not added in db");
+            return  false;
         }
-
-
         return true;
+    }
+    public boolean delete(Client client) {
+        boolean client1=clientDAO.delete(client);
+        if(!client1){
+            System.out.println("The client=" + client.toString() + " was not deleted in db");
+            return  false;
+        }
+        return true;
+    }
+
+    public boolean updateClient(Client client) {
+        boolean client1=clientDAO.update(client);
+        if(!client1){
+            System.out.println("The client=" + client.toString() + " was not updated in db");
+            return  false;
+        }
+        return true;
+    }
+
+    public ArrayList<Client> getAllClients() {
+        return clientDAO.findAll();
     }
 
 }

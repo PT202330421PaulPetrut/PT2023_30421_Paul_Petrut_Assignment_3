@@ -10,19 +10,7 @@ public class Client {
     String name;
     String email;
     public Client(){
-
     }
-
-    /**
-     * A method that returns a Client if the ID is valid
-     * @return
-     */
-    public Client getClientById(int idul){
-        AbstractDAO<Client> abstractDAO = new AbstractDAO<Client>();
-        Reflective.reflectiveProperties(abstractDAO);
-        return (Client) abstractDAO.findById(idul);
-    }
-
     public int getId() {
         return id;
     }

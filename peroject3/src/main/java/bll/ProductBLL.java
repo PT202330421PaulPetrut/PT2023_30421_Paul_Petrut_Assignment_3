@@ -4,6 +4,7 @@ import abstractDAO.ProductDAO;
 import model.Client;
 import model.Product;
 
+import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
 public class ProductBLL {
@@ -26,5 +27,26 @@ public class ProductBLL {
         }
         return true;
     }
+
+    public boolean delete(Product product){
+        if(!productDAO.delete(product)){
+            System.out.print("delete product error, return=false\n");
+            return false;
+        }
+        return true;
+    }
+    public boolean updateProduct(Product product) {
+        boolean product1=productDAO.update(product);
+        if(!product1){
+            System.out.println("The product=" + product.toString() + " was not updated in db");
+            return  false;
+        }
+        return true;
+    }
+
+    public ArrayList<Product> getAllProducts() {
+        return productDAO.findAll();
+    }
+
 
 }
