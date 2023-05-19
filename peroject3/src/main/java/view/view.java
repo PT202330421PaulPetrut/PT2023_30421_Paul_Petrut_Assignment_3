@@ -30,7 +30,6 @@ public class view extends JFrame{
 
         // Set the default close operation
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
     }
 
     public JButton getProdSearchIdBtn() {

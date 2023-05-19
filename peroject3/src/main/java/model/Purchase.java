@@ -20,7 +20,7 @@ public class Purchase {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-    public double getTotalPrice() {
+    public int getTotalPrice() {
         return totalPrice;
     }
     public void setTotalPrice(int totalPrice) {

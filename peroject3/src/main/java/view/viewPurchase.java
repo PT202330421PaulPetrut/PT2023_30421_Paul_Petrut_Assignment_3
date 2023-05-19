@@ -10,12 +10,17 @@ public class viewPurchase extends JFrame {
     private JButton giveAllOrdersBtn;
     private JButton goToProductBtn;
     private JPanel jPanel;
+    public JButton createOrderButton;
+    public JTextField textFieldClientId;
+    public JTextField textFieldProductID;
+    public JTextField textFieldQuantity;
+    public JLabel totalPriceTag;
 
     public viewPurchase(){
 
         this.add(jPanel);
         // Set the title of the frame
-        setTitle("Purchase View");
+        setTitle("Purchase/Order View");
 
         // Set the dimensions of the frame
         setSize(700, 700);

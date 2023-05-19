@@ -54,9 +54,24 @@ public class AbstractDAO<T> {
     }
 
     public ArrayList<T> findAll() {
-        // TODO:
-
-
+        Connection connection = connect();
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        String query = "SELECT *  FROM " + type.getSimpleName() ;
+        try {
+            System.out.println(connection);
+            statement = connection.prepareStatement(query);
+            resultSet = statement.executeQuery();
+            DataAccess dataAccess= new DataAccess();
+            dataAccess.display(resultSet);
+            return (ArrayList<T>) createObjects(resultSet);
+        } catch (SQLException e) {
+            LOGGER.log(Level.WARNING, type.getName() + "DAO:findById " + e.getMessage());
+        } finally {
+            DataAccess.close(resultSet);
+            DataAccess.close(statement);
+            DataAccess.close(connection);
+        }
         return null;
     }
     /**
@@ -151,8 +166,7 @@ public class AbstractDAO<T> {
      * @return true if no errors false if there are errors while trying to write in db
      */
     public boolean update(T t) {
-        // TODO: FA-L PE ASTA ODATA nu-i facut (18 may 2023)
-        // you need to know the id, update the everything for that id with the new info
+        // you need to know the id, update everything for that id with the new info
         // Check if t is null
         if (t == null) {
             System.out.print("T is null for update,AbstractDAO");
@@ -186,6 +200,8 @@ public class AbstractDAO<T> {
                         fields[i].setAccessible(true);
                         statement.setObject(i, fields[i].get(t));
                     }
+                    fields[0].setAccessible(true);
+                    statement.setObject(4, fields[0].get(t));
                 }
             }
             // Execute the query and return the result

@@ -1,10 +1,10 @@
 package model;
 
 public class Product {
-    int id;
+    int id=0;
     String name="";
-    int price;
-    int quantity;
+    int price=0;
+    int quantity=0;
     public Product(){
     }
     public int getId() {
@@ -19,7 +19,7 @@ public class Product {
     public void setName(String name) {
         this.name = name;
     }
-    public double getPrice() {
+    public int getPrice() {
         return price;
     }
     public void setPrice(int price) {

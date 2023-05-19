@@ -15,7 +15,7 @@ public class PurchaseDAO extends  AbstractDAO<Purchase>{
         return super.findById(id);
     }
     @Override
-    public String createInsertQuery() {return "INSERT INTO Purchase (id,client_id,product_id,quantity, total_price) values (?,?,?,?,?)";}
+    public String createInsertQuery() {return "INSERT INTO Purchase (client_id,product_id,quantity, total_price) values (?,?,?,?)";}
     @Override
     public ArrayList<Purchase> findAll() {return super.findAll();}
 

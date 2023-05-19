@@ -1,8 +1,12 @@
 package controller;
 
+import bll.ClientBLL;
 import bll.ProductBLL;
+import bll.PurchaseBLL;
 import model.Product;
 import view.view;
+import view.viewClient;
+import view.viewPurchase;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -22,6 +26,31 @@ public class ProductController {
         viewProduct.getProdSearchAllBtn().addActionListener(new SearchAllListener());
         viewProduct.getProdDeleteBtn().addActionListener(new DeleteProductListener());
         viewProduct.getProdUpdateBtn().addActionListener(new UpdateProductListener());
+        viewProduct.getGoPurchaseBtn().addActionListener(new GoPurchaseBtn());
+        viewProduct.getGoClientBtn().addActionListener(new GoClientBtn());
+    }
+
+    class GoClientBtn implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            viewClient clientView = new viewClient();
+            ClientBLL clientBLL =new ClientBLL();
+            ClientController clientController = new ClientController(clientView, clientBLL);
+            clientView.setVisible(true);
+            viewProduct.setVisible(false);
+
+        }
+    }
+
+    class GoPurchaseBtn implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            viewPurchase purchaseView = new viewPurchase();
+            PurchaseBLL purchaseBLL= new PurchaseBLL();
+            PurchaseController purchaseController = new PurchaseController(purchaseView, purchaseBLL);
+            purchaseView.setVisible(true);
+            viewProduct.setVisible(false);
+        }
     }
 
     /**

@@ -35,24 +35,22 @@ public class ClientController {
     // ActionListener for the "Go to Products" button
     class GoToProductListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            // TODO: Open the products view
-            // Example code:
             view productsView = new view();
             ProductBLL productBLL =new ProductBLL();
             ProductController productsController = new ProductController(productBLL, productsView);
             productsView.setVisible(true);
+            viewClient.setVisible(false);
         }
     }
 
     // ActionListener for the "Go to Purchase" button
     class GoToPurchaseListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            // TODO: Open the purchase view
-            // Example code:
             viewPurchase purchaseView = new viewPurchase();
             PurchaseBLL purchaseBLL= new PurchaseBLL();
             PurchaseController purchaseController = new PurchaseController(purchaseView, purchaseBLL);
             purchaseView.setVisible(true);
+            viewClient.setVisible(false);
         }
     }
 
