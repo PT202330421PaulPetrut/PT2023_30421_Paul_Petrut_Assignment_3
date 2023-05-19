@@ -200,8 +200,10 @@ public class AbstractDAO<T> {
                         fields[i].setAccessible(true);
                         statement.setObject(i, fields[i].get(t));
                     }
-                    fields[0].setAccessible(true);
-                    statement.setObject(4, fields[0].get(t));
+                    if(type.getName().contentEquals("Purchase")) {
+                        fields[0].setAccessible(true);
+                        statement.setObject(4, fields[0].get(t));
+                    }
                 }
             }
             // Execute the query and return the result
